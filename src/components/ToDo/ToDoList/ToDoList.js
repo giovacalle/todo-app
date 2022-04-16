@@ -34,7 +34,7 @@ const ToDoList = (props) => {
         </h2>
       }
       { 
-        filteredTodos.length === 0 && filters.text === '' && filters.state === 'ToDo' && 
+        filteredTodos.length === 0 && filters.text === '' && (filters.state === 'All' || filters.state === 'ToDo') && 
         <h2 className="mt-5 text-center">
           <span>No to-do found, well done !</span>
           <div className="mt-2">
