@@ -6,7 +6,7 @@ export const ToDoContext = React.createContext();
 const ToDoProvider = (props) => {
   const [todos, setTodos] = useLocalStorage("todos", []);
   const [filteredTodos, setFilteredTodos] = useState([]);
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useLocalStorage("todos_filters", {
     state: 'All',
     text: ''
   });

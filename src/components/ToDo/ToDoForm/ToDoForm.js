@@ -21,8 +21,16 @@ const ToDoForm = (props) => {
     changeStateTodo(props.id, e.target.checked);
   };
 
+  const formClickHandler = (event) => {
+    const arrTarget = ['FORM', 'SMALL', 'LABEL'];
+
+    if (!arrTarget.includes(event.target.tagName)) return;
+
+    props.onClick();
+  };
+
   return (
-    <Form ref={ref} onSubmit={(e) => e.preventDefault()} className="d-flex justify-content-between position-relative">
+    <Form ref={ref} onSubmit={(e) => e.preventDefault()} onClick={formClickHandler} className="d-flex justify-content-between position-relative">
       <style type="text/css">
         {`
         .form-check-todo {
