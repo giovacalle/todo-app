@@ -14,7 +14,7 @@ const ToDoList = (props) => {
   } = useContext(ToDoContext);
 
   return (
-    <ul className="list-unstyled mt-4 p-0 pb-5 overflow-auto" style={{ maxHeight: '65vh' }}>
+    <ul className="w-100 list-unstyled mt-4 p-0 pb-5 overflow-auto" style={{ maxHeight: '65vh' }}>
       { 
         filteredTodos.length === 0 && filters.text !== '' && 
         <h2 className="mt-5 text-center">

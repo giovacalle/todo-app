@@ -8,7 +8,8 @@ const ToDoProvider = (props) => {
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [filters, setFilters] = useLocalStorage("todos_filters", {
     state: 'All',
-    text: ''
+    text: '',
+    dateAsc: true 
   });
 
   useEffect(() => {
@@ -28,7 +29,9 @@ const ToDoProvider = (props) => {
     }
 
     todosTmp.sort((a, b) => {
-        return Date.parse(a.dateAdd) - Date.parse(b.dateAdd)
+        const diffDate = filters.dateAsc ? Date.parse(a.dateAdd) - Date.parse(b.dateAdd) : Date.parse(b.dateAdd) - Date.parse(a.dateAdd);
+
+        return diffDate;
     });
 
     setFilteredTodos(JSON.parse(JSON.stringify(todosTmp)));
