@@ -5,6 +5,9 @@ import Form from "react-bootstrap/Form";
 import FilterState from "../FilterState/FilterState";
 
 import { ToDoContext } from "../../../contexts/ToDoContext";
+import { Button } from "react-bootstrap";
+
+import { AiOutlineSortAscending, AiOutlineSortDescending } from 'react-icons/ai';
 
 const FiltersList = () => {
   const {filters, setFilters} = useContext(ToDoContext);
@@ -21,6 +24,12 @@ const FiltersList = () => {
     });
   };
 
+  const dateChangeHandler = (e) => {
+    setFilters(prevFilters => {
+      return { ...prevFilters, dateAsc: !prevFilters.dateAsc };
+    });
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
   };
@@ -32,6 +41,11 @@ const FiltersList = () => {
         <Form.Control type="text" value={filters.text} onChange={textChangeHandler} size="md" placeholder="Order pizzas 😋" />
       </Form.Group>
 			<FilterState state={filters.state} onClick={stateChangeHandler} />
+      <Button className="mt-2 shadow-none float-end text-dark" onClick={dateChangeHandler}>
+        <span>order by date </span>
+        {filters.dateAsc || <AiOutlineSortAscending /> }
+        {filters.dateAsc && <AiOutlineSortDescending /> }
+      </Button>
     </Form>
   );
 };
