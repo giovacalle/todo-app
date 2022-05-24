@@ -9,29 +9,22 @@ import ToDoList from "./components/ToDo/ToDoList/ToDoList";
 import AddTodo from "./components/ToDo/AddTodo/AddTodo";
 
 function App() {
-  const [idTodoupdate, setIdTodoupdate] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   const showModalHandler = () => {
-    setIdTodoupdate(0);
     setShowModal((prevState) => !prevState);
-  } 
+  }; 
 
   return (
     <>
       <Header />
       <Main>
         <FiltersList />
-        <ToDoList
-          onClickItem={(id) => {
-            setIdTodoupdate(id);
-            setShowModal(true);
-          }}
-        />
+        <ToDoList />
         <AddTodo
           show={showModal}
           onCloseClick={showModalHandler}
-          idTodoupdate={idTodoupdate}
+          idTodoupdate='0'
         />
       </Main>
       <Footer onAddClick={showModalHandler} />

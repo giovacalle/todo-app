@@ -2,35 +2,34 @@ import React, { useRef, useState, useContext } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import CloseButton from "react-bootstrap/CloseButton";
 
-import Popover from "react-bootstrap/Popover";
-import Overlay from "react-bootstrap/Overlay";
+import AddTodo from "../AddTodo/AddTodo";
+import DeleteTodo from "../DeleteTodo/DeleteTodo";
 
 import { ToDoContext } from "../../../contexts/ToDoContext";
 
 import { BsTrash, BsPencil } from "react-icons/bs";
 
 const ToDoForm = (props) => {
-  const { deleteTodo, changeStateTodo } = useContext(ToDoContext);
-  const [popoverShow, setPopoverShow] = useState(false);
-  const [target, setTarget] = useState(null);
+  const { changeStateTodo } = useContext(ToDoContext);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
   const ref = useRef(null);
 
   const stateChangeHandler = (e) => {
     changeStateTodo(props.id, e.target.checked);
   };
 
-  const formClickHandler = (event) => {
-    const arrTarget = ['FORM', 'SMALL', 'LABEL'];
+  const updateModalHandler = () => {
+    setUpdateModal((prevState) => !prevState);
+  };
 
-    if (!arrTarget.includes(event.target.tagName)) return;
-
-    props.onClick();
+  const deleteModalHandler = () => {
+    setDeleteModal((prevState) => !prevState);
   };
 
   return (
-    <Form ref={ref} onSubmit={(e) => e.preventDefault()} onClick={formClickHandler} className="d-flex justify-content-between position-relative">
+    <Form ref={ref} onSubmit={(e) => e.preventDefault()} className="d-flex justify-content-between position-relative">
       <style type="text/css">
         {`
         .form-check-todo {
@@ -69,45 +68,31 @@ const ToDoForm = (props) => {
       <div className="d-flex flex-column gap-2">
         <Button
           variant="default"
-          className="btn-sm"
+          className="btn-sm shadow-none"
           aria-label="Delete"
-          onClick={(e) => {
-            setTarget(e.target);
-            setPopoverShow(prevShow => !prevShow);
-          }}
+          onClick={deleteModalHandler}
         >
           <BsTrash />
         </Button>
         <Button
           variant="default"
-          className="btn-sm"
+          className="btn-sm shadow-none"
           aria-label="Update"
-          onClick={props.onClick}
+          onClick={updateModalHandler}
         >
           <BsPencil />
         </Button>
       </div>
-      <Overlay show={popoverShow} placement="left" target={target} container={ref}>
-        <Popover style={{cursor: 'default'}}>
-          <Popover.Header as="h3">
-            Attention
-            <CloseButton onClick={() => setPopoverShow(false)} className="btn-sm float-end" aria-label="Close" />
-          </Popover.Header>
-          <Popover.Body>Are you sure delete this to-do ?</Popover.Body>
-          <Button
-            id="Completed"
-            type="button"
-            size="sm"
-            className="btn-terziary text-white float-end m-2 mt-0"
-            onClick={() => { 
-							setPopoverShow(false);
-							deleteTodo(props.id);
-						}}
-          >
-            Delete
-          </Button>
-        </Popover>
-      </Overlay>
+      <AddTodo
+        show={updateModal}
+        idTodoupdate={props.id}
+        onCloseClick={updateModalHandler}
+      />
+      <DeleteTodo 
+        show={deleteModal}
+        idTodoDelete={props.id}
+        onCloseClick={deleteModalHandler}
+      />
     </Form>
   );
 };
