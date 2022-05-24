@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
@@ -8,24 +8,13 @@ import { ToDoContext } from "../../../contexts/ToDoContext";
 
 import { BsExclamationOctagon, BsTrash } from "react-icons/bs";
 
-const DeleteTodo = (props) => {
-	const [todoDelete, setTodoDelete] = useState({});
-  const { todos, deleteTodo } = useContext(ToDoContext);
-
-	useEffect(() => {
-		let todoItem = todos.find(todo => todo.id === props.idTodoDelete);
-
-		if (todoItem) {
-			setTodoDelete({ id: todoItem.id, text: todoItem.text });
-		} else {
-			props.onCloseClick();
-		}
-	}, [props, todos]);
+const ClearCompleted = (props) => {
+  const { clearCompleted } = useContext(ToDoContext);
 
 	const submitHandler = (e) => {
     e.preventDefault();
 
-		deleteTodo(todoDelete.id);
+		clearCompleted();
 
 		props.onCloseClick();
   };
@@ -35,24 +24,20 @@ const DeleteTodo = (props) => {
 			<Form onSubmit={submitHandler}>
 				<Modal.Header closeButton>
 					<Modal.Title>
-						<BsTrash /> Delete to-do
+						<BsTrash /> Delete completed to-do
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 						<div className="text-center">
 							<BsExclamationOctagon className="me-2" />
 							<small>
-								<b>Attention</b>, this action is <b>not</b> reversible
+								<b>Attention</b>, all <b>completed to-do</b> will be <b>deleted</b>, this action is <b>not</b> reversible
 							</small>
 						</div>
-						<Form.Group className="mt-2">
-							<Form.Label>Your text</Form.Label>
-							<Form.Control as="textarea" defaultValue={todoDelete.text} rows={5} placeholder="Order pizzas 😋" disabled />
-						</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>					
 					<Button type="submit" variant="danger" size="lg" className="text-white">
-						Delete
+						Clear completed
 					</Button>
 				</Modal.Footer>
 			</Form>
@@ -60,4 +45,4 @@ const DeleteTodo = (props) => {
 	);
 };
 
-export default DeleteTodo;
+export default ClearCompleted;

@@ -61,6 +61,11 @@ const ToDoProvider = (props) => {
       return prevTodos.filter(todo => todo.id !== id);
     });
   };
+  const clearCompleted = () => {
+    setTodos(prevTodos => {
+      return prevTodos.filter(todo => !todo.completed);
+    });
+  };
   const changeStateTodo = (id, state) => {
     setTodos(prevTodos => {
       let todosTmp = [...prevTodos];
@@ -81,6 +86,7 @@ const ToDoProvider = (props) => {
       filters,
       addTodo,
       deleteTodo,
+      clearCompleted,
       changeStateTodo,
       setFilteredTodos,
       setFilters
