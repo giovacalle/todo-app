@@ -14,7 +14,6 @@ const ToDoItem = (props) => {
             text={props.text}
             dateAdd={props.dateAdd}
             checked={props.completed}
-            onClick={props.onClick}
           />
         </Card.Body>
       </Card>

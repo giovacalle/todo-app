@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 
 import { ToDoContext } from "../../../contexts/ToDoContext";
 
+import { BsPencil } from "react-icons/bs";
+
 const AddTodo = (props) => {
 	const [todoUpdate, setTodoUpdate] = useState({});
   const { todos, addTodo } = useContext(ToDoContext);
@@ -32,11 +34,14 @@ const AddTodo = (props) => {
 		<Modal show={props.show} onHide={props.onCloseClick} className="h-auto bottom-0" style={{top: 'unset'}}>
 			<Form onSubmit={submitHandler}>
 				<Modal.Header closeButton>
-					<Modal.Title>{`${todoUpdate.id === 0 ? 'Add new' : 'Modify'} to-do`}</Modal.Title>
+					<Modal.Title>
+						<BsPencil />
+						{`${todoUpdate.id === 0 ? ' Add new ' : ' Modify '} to-do`}
+					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-						<Form.Group className="mt-2">
-							<Form.Label>Insert your text</Form.Label>
+						<Form.Group>
+							<Form.Label>Your text</Form.Label>
 							<Form.Control as="textarea" defaultValue={todoUpdate.text} ref={refText} rows={5} placeholder="Order pizzas 😋" />
 						</Form.Group>
 				</Modal.Body>
