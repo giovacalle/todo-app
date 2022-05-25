@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 
 import ToDoItem from "../ToDoItem/ToDoItem";
 
-import { BsListCheck } from "react-icons/bs";
 import { FaRegSmileBeam, FaSearch } from "react-icons/fa";
 import { RiFocus2Line } from "react-icons/ri";
 
@@ -40,15 +39,6 @@ const ToDoList = (props) => {
           <span>No to-do found, well done !</span>
           <div className="mt-2">
             <FaRegSmileBeam />
-          </div>
-        </h2>
-      }
-      { 
-        filteredTodos.length === 0 && filters.text === '' && filters.state === 'All' && 
-        <h2 className="mt-5 text-center">
-          <span>Nothing found ! Let's add some to-do</span>
-          <div className="mt-2">
-            <BsListCheck />
           </div>
         </h2>
       }
